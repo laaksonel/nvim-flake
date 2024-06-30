@@ -5,7 +5,8 @@
     nvim-lspconfig
     cmp-nvim-lsp
     nvim-metals
-    null-ls-nvim
+    none-ls-nvim
+    none-ls-extras
   ] ++ (with pkgs; [ eslint_d ]);
 
   vim.configRC = ''
@@ -233,16 +234,14 @@
         formatting.stylua,
         formatting.ocamlformat,
 
-        -- diagnostics
-        diagnostics.eslint_d.with({
+        require('none-ls.diagnostics.eslint_d').with({
           command = "${pkgs.eslint_d}/bin/eslint_d",
           condition = function(utils)
             return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
           end,
         }),
 
-        -- code actions
-        code_actions.eslint_d.with({
+        require('none-ls.code_actions.eslint_d').with({
           condition = function(utils)
             return utils.root_has_file({ ".eslintrc.js", ".eslintrc.cjs", ".eslintrc.json" })
           end,
@@ -278,7 +277,7 @@
       on_init = custom_init;
       capabilities = capabilities;
       on_attach=default_on_attach;
-      cmd = {"${pkgs.nodePackages.pyright}/bin/pyright-langserver", "--stdio"};
+      cmd = {"${pkgs.pyright}/bin/pyright-langserver", "--stdio"};
 
       root_dir = function(fname)
         return util.root_pattern(".git", "setup.py",  "setup.cfg", "pyproject.toml", "requirements.txt")(fname) or util.path.dirname(fname)
