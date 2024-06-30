@@ -15,13 +15,13 @@
       customPlugins = import ./lib/customPlugins.nix;
     in
     {
-      packages = forAllSystems (system: 
+      packages = forAllSystems (system:
         let
           pkgs = import nixpkgs {
             inherit system;
             config = { allowUnfree = true; };
             overlays = [
-              inputs.neovim-nightly-overlay.overlay
+              inputs.neovim-nightly-overlay.overlays.default
               customPlugins
             ];
           };
