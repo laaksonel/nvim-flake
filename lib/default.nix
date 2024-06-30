@@ -12,7 +12,7 @@ let
   inherit (vimOptions.config) vim;
 in
 {
-  neovim = pkgs.neovim.override {
+  neovim = pkgs.wrapNeovim pkgs.neovim {
     configure = {
       customRC = ''
         ${vim.configRC}
@@ -27,7 +27,7 @@ in
 
       packages.myVimPackage = {
         start = vim.startPlugins;
-        opt = [];
+        opt = [ ];
       };
     };
   };
