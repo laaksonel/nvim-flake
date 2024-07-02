@@ -10,9 +10,10 @@ let
   };
 
   inherit (vimOptions.config) vim;
+  bins = [ pkgs.cowsay ];
 in
-{
-  neovim = pkgs.wrapNeovim pkgs.neovim {
+rec {
+  neovimCfg = pkgs.wrapNeovim pkgs.neovim {
     configure = {
       customRC = ''
         ${vim.configRC}
@@ -30,5 +31,15 @@ in
         opt = [ ];
       };
     };
+  };
+
+  neovim = pkgs.symlinkJoin {
+    name = "nvim";
+    paths = [ neovimCfg ] ++ bins;
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/nvim \
+        --prefix PATH : ${lib.makeBinPath bins}
+    '';
   };
 }
