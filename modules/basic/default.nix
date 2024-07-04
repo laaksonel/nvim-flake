@@ -84,6 +84,6 @@
     vim.opt.undofile = true
     vim.opt.signcolumn = "yes"
 
-    vim.opt.guicursor = nil
+    vim.opt.guicursor = ""
   '';
 }
