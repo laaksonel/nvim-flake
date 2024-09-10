@@ -12,6 +12,8 @@
       "[q" = ":cprev<CR>";
       ",d" = "\"_d";
       ",c" = "\"_c";
+      "H" = ":tabprev<CR>";
+      "L" = ":tabnext<CR>";
     };
 
   vim.tnoremap =
