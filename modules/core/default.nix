@@ -18,6 +18,10 @@ in
       description = "Defines 'Visual and Select mode' mappings";
     };
 
+    tnoremap = mkMappingOption {
+      description = "Defines 'Terminal mode' mappings";
+    };
+
     finalKeybindings = mkOption {
       description = "built Keybindings in vimrc contents";
       type = types.lines;
@@ -69,11 +73,13 @@ in
 
       nnoremap = mapVimBinding "nnoremap" config.vim.nnoremap;
       vnoremap = mapVimBinding "vnoremap" config.vim.vnoremap;
+      tnoremap = mapVimBinding "tnoremap" config.vim.tnoremap;
     in
-      {
+    {
       vim.finalKeybindings = ''
         ${builtins.concatStringsSep "\n" nnoremap}
         ${builtins.concatStringsSep "\n" vnoremap}
+        ${builtins.concatStringsSep "\n" tnoremap}
       '';
     };
 }
