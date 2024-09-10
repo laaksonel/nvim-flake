@@ -21,7 +21,6 @@
     ./treesitter
     ./formatter
     ./mind
-    ./twilight
     ./git-worktree
     ./gen
     ./surround
