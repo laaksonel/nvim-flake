@@ -13,6 +13,7 @@
     ./visuals
     ./statusline
 
+    ./haskell-tools
     ./harpoon
     ./tmux
     ./wilder
