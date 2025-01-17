@@ -5,8 +5,8 @@
 
   vim.configRC = ''
     " Tree-sitter based folding
-    set foldmethod=expr
-    set foldexpr=nvim_treesitter#foldexpr()
+    " set foldmethod=expr
+    " set foldexpr=nvim_treesitter#foldexpr()
   '';
 
   vim.luaConfigRC =
@@ -17,7 +17,7 @@
         indent = { enable = true },
 
         incremental_selection = {
-          enable = true,
+          enable = false,
           keymaps = {
             init_selection = "gnn",
             node_incremental = "grn",
@@ -27,7 +27,7 @@
         },
 
         indent = {
-          enable = true,
+          enable = false,
         },
       }
     '';

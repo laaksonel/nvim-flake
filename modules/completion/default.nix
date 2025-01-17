@@ -28,8 +28,8 @@
       },
       sources = {
         { name = 'nvim_lsp' },
-        { name = 'vsnip' },
-        { name = 'treesitter' },
+        -- { name = 'vsnip' },
+        -- { name = 'treesitter' },
         { name = 'path' },
         { name = 'buffer' },
       },
