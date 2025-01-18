@@ -37,7 +37,7 @@
     opt.cursorline = true -- Highlight the current line
 
     -- Tabs
-    opt.autoindent = true
+    opt.autoindent = false
     opt.cindent = true
     opt.wrap = false
 
