@@ -19,7 +19,7 @@
 
   vim.tnoremap =
     {
-      "<leader><Esc>" = "<C-\\><C-n>";
+      "<Esc>" = "<C-\\><C-n>";
     };
 
   vim.startLuaConfigRC = ''
