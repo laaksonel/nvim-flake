@@ -274,7 +274,8 @@
     			hls = {
     				capabilities = capabilities,
     				on_attach = function(client, bufnr)
-    					default_on_attach(client, bufnr)
+    					-- default_on_attach(client, bufnr)
+              attach_keymaps(client, bufnr)
 
     					local map = function(keys, func, desc)
     						vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
@@ -290,7 +291,7 @@
     						"Toggle GHCi repl (buffer)"
     					)
     				end,
-    				debug = true,
+    				debug = false,
     				cmd = {
     					"haskell-language-server-wrapper",
     					"--lsp",
