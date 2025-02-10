@@ -26,7 +26,7 @@
         local attach_keymaps = function(client, bufnr)
           local opts = { noremap=true, silent=true }
 
-          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>lr', '<cmd>lua vim.lsp.codelens.run()<CR>', opts)
+          vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>cr', '<cmd>lua vim.lsp.codelens.run()<CR>', opts)
 
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
           vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
@@ -275,7 +275,29 @@
     				capabilities = capabilities,
     				on_attach = function(client, bufnr)
     					-- default_on_attach(client, bufnr)
+
               attach_keymaps(client, bufnr)
+              --format_callback(client, bufnr)
+
+              vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
+
+              if client.server_capabilities.documentHighlightProvider then
+                autocmd_clear { group = augroup_highlight, buffer = bufnr }
+                autocmd { "CursorHold", augroup_highlight, vim.lsp.buf.document_highlight, bufnr }
+                autocmd { "CursorMoved", augroup_highlight, vim.lsp.buf.clear_references, bufnr }
+              end
+
+              local caps = client.server_capabilities
+
+              if semantic and caps.semanticTokensProvider and caps.semanticTokensProvider.full then
+                autocmd_clear { group = augroup_semantic, buffer = bufnr }
+              end
+
+              if client.server_capabilities.codeLensProvider then
+                autocmd_clear { group = augroup_codelens, buffer = bufnr }
+                autocmd { "BufEnter", augroup_codelens, vim.lsp.codelens.refresh, bufnr, once = true }
+                autocmd { { "BufWritePost", "CursorHold" }, augroup_codelens, vim.lsp.codelens.refresh, bufnr }
+              end
 
     					local map = function(keys, func, desc)
     						vim.keymap.set("n", keys, func, { buffer = bufnr, desc = desc })
