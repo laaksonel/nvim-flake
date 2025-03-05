@@ -149,6 +149,16 @@
           cmd = {"${pkgs.kotlin-language-server}/bin/kotlin-language-server"}
         }
 
+        lspconfig.clangd.setup{
+          filetypes = { "c", "cc", "cpp", "c++", "objc", "objcpp", "cuda", "proto" };
+          capabilities = capabilities;
+          on_attach = function(client, bufnr)
+            default_on_attach(client, bufnr);
+            local opts = { noremap=true, silent=true }
+            vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>ch', '<cmd>ClangdSwitchSourceHeader<cr>', opts)
+          end
+        }
+
         lspconfig.elmls.setup {
           capabilities = capabilities;
           on_attach = default_on_attach;
